@@ -1,11 +1,10 @@
-import react from 'react'
-
 import React from 'react'
+import IO from './components/chatInput'
 
 const App = () => {
   return (
     <div>
-      <h1>Hello React</h1>
+      <IO/>
     </div>
   )
 }
