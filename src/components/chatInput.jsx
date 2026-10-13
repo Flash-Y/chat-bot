@@ -2,10 +2,10 @@ import React from 'react'
 
 const chatInput = () => {
   return (
-    <div>
-      <input/>
+    <>
+      <input  placeholder='Need help?'/>
       <button>Send</button>
-    </div>
+    </>
   )
 }
 

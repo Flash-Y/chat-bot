@@ -1,23 +1,22 @@
 :root {
   font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
     "Segoe UI", sans-serif;
-  color: #e8edf6;
-  background: #0b0e14;
+  color: #eeeae5;
+  background: #151515;
+  color-scheme: dark;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  color-scheme: dark;
-  font-weight: 400;
 
-  --page: #0b0e14;
-  --surface: #131923;
-  --surface-raised: #19212d;
-  --border: rgb(151 169 196 / 14%);
-  --text: #e8edf6;
-  --muted: #8995a8;
-  --accent: #91e6b3;
-  --accent-strong: #6bd79a;
+  --page: #151515;
+  --surface: #202020;
+  --surface-hover: #2a2a2a;
+  --border: #484848;
+  --text: #eeeae5;
+  --muted: #9a9996;
+  --accent: #e47b58;
+  --link: #62a5ff;
 }
 
 * {
@@ -34,141 +33,270 @@ body,
 
 body {
   min-height: 100vh;
-  background:
-    radial-gradient(ellipse at 50% 36%, rgb(47 77 76 / 20%), transparent 48%),
-    radial-gradient(ellipse at 12% 100%, rgb(29 50 73 / 22%), transparent 42%),
-    var(--page);
+  background: var(--page);
   color: var(--text);
 }
 
 button,
-input {
+input,
+textarea {
   font: inherit;
 }
 
+button {
+  color: inherit;
+}
+
 ::selection {
-  color: #08120c;
+  color: var(--page);
   background: var(--accent);
 }
 
 #root {
-  display: grid;
-  min-height: 100vh;
-  place-items: center;
-  padding: 32px 20px;
-}
-
-#root > div {
   position: relative;
   display: flex;
-  width: min(100%, 700px);
+  min-height: 100vh;
+  flex-direction: column;
   align-items: center;
-  gap: 12px;
-  padding: 12px;
-  border: 1px solid var(--border);
-  border-radius: 22px;
-  background: linear-gradient(145deg, rgb(25 33 45 / 96%), rgb(17 23 32 / 96%));
-  box-shadow:
-    0 28px 80px rgb(0 0 0 / 42%),
-    0 1px 0 rgb(255 255 255 / 4%) inset;
+  justify-content: center;
+  gap: 32px;
+  padding: 96px 24px 40px;
 }
 
-#root > div::before {
+/* Optional header elements for the chat layout. */
+.plan-badge {
   position: absolute;
-  top: -42px;
-  left: 0;
-  width: min(100%, 700px);
+  top: 32px;
+  left: 50%;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 12px;
+  transform: translateX(-50%);
+  border-radius: 10px;
+  background: #101010;
   color: var(--muted);
-  content: "YOUR AI ASSISTANT";
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.18em;
+  font-size: 15px;
+}
+
+.plan-badge a {
+  color: var(--link);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.brand {
+  margin: 0;
+  color: var(--text);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(38px, 5.2vw, 52px);
+  font-weight: 400;
+  letter-spacing: -0.045em;
+  line-height: 1.1;
   text-align: center;
 }
 
-input {
-  width: 100%;
-  min-width: 0;
-  height: 54px;
-  padding: 0 16px;
-  border: 1px solid transparent;
-  border-radius: 14px;
-  outline: none;
-  background: transparent;
-  color: var(--text);
-  font-size: 15px;
+.brand-mark {
+  margin-right: 10px;
+  color: var(--accent);
+  font-family: ui-sans-serif, system-ui, sans-serif;
+  font-size: 0.88em;
+}
+
+/* Works with the existing input/button wrapper, or a .composer element. */
+#root > div,
+.composer {
+  display: flex;
+  width: min(100%, 800px);
+  min-height: 128px;
+  align-items: flex-end;
+  gap: 12px;
+  padding: 12px;
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  background: var(--surface);
+  box-shadow: 0 1px 1px rgb(255 255 255 / 3%) inset;
   transition:
     border-color 160ms ease,
-    background-color 160ms ease,
-    box-shadow 160ms ease;
+    background-color 160ms ease;
 }
 
-input::placeholder {
-  color: #7e8a9d;
+#root > div:focus-within,
+.composer:focus-within {
+  border-color: #68635f;
+  background: #222;
 }
 
-input:hover {
-  background: rgb(255 255 255 / 2%);
-}
-
-input:focus {
-  border-color: rgb(145 230 179 / 28%);
-  background: rgb(255 255 255 / 2%);
-  box-shadow: 0 0 0 3px rgb(145 230 179 / 8%);
-}
-
-button {
-  min-height: 50px;
-  flex: 0 0 auto;
-  padding: 0 23px;
+input,
+textarea,
+.composer-input {
+  width: 100%;
+  min-width: 0;
+  min-height: 85px;
+  padding: 5px 7px;
   border: 0;
-  border-radius: 13px;
-  background: var(--accent);
-  color: #102017;
+  outline: 0;
+  resize: vertical;
+  background: transparent;
+  color: var(--text);
+  font-size: 17px;
+  line-height: 1.5;
+}
+
+input::placeholder,
+textarea::placeholder,
+.composer-input::placeholder {
+  color: #8b8987;
+  opacity: 1;
+}
+
+button,
+.send-button {
+  min-height: 42px;
+  flex: 0 0 auto;
+  padding: 0 17px;
+  border: 0;
+  border-radius: 11px;
+  background: #343434;
+  color: var(--text);
   cursor: pointer;
   font-size: 14px;
-  font-weight: 700;
+  font-weight: 600;
   transition:
-    transform 160ms ease,
-    background-color 160ms ease,
-    box-shadow 160ms ease;
+    transform 150ms ease,
+    background-color 150ms ease,
+    opacity 150ms ease;
 }
 
-button:hover {
+button:hover,
+.send-button:hover {
   transform: translateY(-1px);
-  background: var(--accent-strong);
-  box-shadow: 0 6px 20px rgb(107 215 154 / 18%);
+  background: #414141;
 }
 
-button:active {
+button:active,
+.send-button:active {
   transform: translateY(0);
 }
 
-button:focus-visible {
-  outline: 3px solid rgb(145 230 179 / 45%);
+button:focus-visible,
+.send-button:focus-visible,
+.suggestion-chip:focus-visible {
+  outline: 2px solid var(--accent);
   outline-offset: 3px;
 }
 
-@media (max-width: 480px) {
+.composer-toolbar {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.composer-tools,
+.composer-modes {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.composer-tools button,
+.composer-modes button {
+  min-height: 34px;
+  padding: 0 12px;
+  background: transparent;
+  color: #c9c5bf;
+  font-weight: 500;
+}
+
+.composer-tools button:hover,
+.composer-modes button:hover {
+  background: var(--surface-hover);
+}
+
+.composer-modes .is-active {
+  border: 1px solid #555;
+  background: #373737;
+  color: var(--text);
+}
+
+.suggestions {
+  display: flex;
+  max-width: min(100%, 800px);
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+}
+
+.suggestion-chip {
+  min-height: 40px;
+  padding: 0 14px;
+  border: 0;
+  border-radius: 11px;
+  background: #2b2b2b;
+  color: #eeeae5;
+  cursor: pointer;
+  font-size: 15px;
+  transition:
+    transform 150ms ease,
+    background-color 150ms ease;
+}
+
+.suggestion-chip:hover {
+  transform: translateY(-1px);
+  background: #383838;
+}
+
+@media (max-width: 600px) {
   #root {
-    padding: 24px 16px;
+    gap: 24px;
+    padding: 88px 16px 28px;
   }
 
-  #root > div {
-    gap: 6px;
-    padding: 8px;
-    border-radius: 18px;
-  }
-
-  input {
-    height: 50px;
-    padding-inline: 12px;
+  .plan-badge {
+    top: 20px;
     font-size: 14px;
   }
 
-  button {
-    min-height: 46px;
-    padding-inline: 16px;
+  #root > div,
+  .composer {
+    min-height: 116px;
+    gap: 6px;
+    padding: 10px;
+  }
+
+  input,
+  textarea,
+  .composer-input {
+    min-height: 82px;
+    padding-inline: 4px;
+    font-size: 15px;
+  }
+
+  .composer-toolbar {
+    align-items: flex-start;
+  }
+
+  .composer-tools,
+  .composer-modes {
+    flex-wrap: wrap;
+    gap: 4px;
+  }
+
+  .composer-tools button,
+  .composer-modes button {
+    padding-inline: 8px;
+  }
+
+  .suggestions {
+    gap: 8px;
+  }
+
+  .suggestion-chip {
+    min-height: 36px;
+    padding-inline: 11px;
+    font-size: 14px;
   }
 }
 
