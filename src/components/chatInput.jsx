@@ -1,11 +1,9 @@
-import React from 'react'
-
 const chatInput = () => {
   return (
-    <>
-      <input  placeholder='Need help?'/>
-      <button>Send</button>
-    </>
+    <div className="composer">
+      <input className="composer-input" placeholder="Need help?" />
+      <button className="send-button">Send</button>
+    </div>
   )
 }
 
